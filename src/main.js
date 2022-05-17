@@ -6,6 +6,11 @@ import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 const app = createApp(App);
 app.use(VueSweetalert2);
+import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+app.use(BootstrapVue);
+app.use(BootstrapVueIcons);
 app.use(router);
 app.$toastMessage = function toastMessage(type, text, duration, position) {
   this.$swal({
