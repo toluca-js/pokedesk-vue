@@ -43,7 +43,7 @@ export default {
   name: "ConsultarApi",
   data() {
     return {
-      idPokemon: 0,
+      idPokemon: 1,
       imgPokemon: "",
       dataPokemon: "",
     };

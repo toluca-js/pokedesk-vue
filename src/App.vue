@@ -1,7 +1,9 @@
 <template>
   <nav>
     <router-link to="/">Consultar Api</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/estilos">Estilos Css</router-link> |
+    <router-link to="/inicioPokeDex">Inicio Pokedex</router-link> |
+    <router-link to="/botonSiguiente">Btn Sig</router-link>
   </nav>
   <router-view />
 </template>

@@ -8,13 +8,37 @@ const routes = [
     component: ConsultarApi,
   },
   {
-    path: "/about",
-    name: "about",
+    path: "/estilos",
+    name: "estilos boostrap",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      import(
+        /* webpackChunkName: "about" */ "../components/steps/EstilosBoostrap"
+      ),
+  },
+  {
+    path: "/inicioPokeDex",
+    name: "inicio pokedex",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../components/steps/inicioPokedex"
+      ),
+  },
+  {
+    path: "/botonSiguiente",
+    name: "siguiente boton pokedex",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../components/steps/botonSiguiente"
+      ),
   },
 ];
 
