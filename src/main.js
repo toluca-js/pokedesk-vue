@@ -7,7 +7,12 @@ import "sweetalert2/dist/sweetalert2.min.css";
 const app = createApp(App);
 app.use(VueSweetalert2);
 app.use(router);
-app.$toastMessage = function toastMessage(type, text, duration, position) {
+app.config.globalProperties.$toastMessage = function toastMessage(
+  type,
+  text,
+  duration,
+  position
+) {
   this.$swal({
     toast: true,
     position: position,

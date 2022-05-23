@@ -7,7 +7,7 @@
           <!-- Left Panel -->
           <div id="left-panel">
             <!-- Top lights -->
-            <div class="left-top-container">
+            <div class="left-top-container" style="background-color: darkred">
               <svg height="100" width="225" class="left-svg">
                 <polyline
                   points="0,75 70,75 90,38 224,38"
@@ -35,12 +35,15 @@
             </div>
             <!-- Center Screen -->
             <div class="screen-container">
-              <div class="screen">
+              <div class="screen" style="background-color: lightskyblue">
                 <div class="top-screen-lights">
                   <div class="mini-light red"></div>
                   <div class="mini-light red"></div>
                 </div>
-                <div id="main-screen"></div>
+                <div
+                  id="main-screen"
+                  v-bind:style="{ backgroundImage: `url(${imgPokemon})` }"
+                ></div>
                 <div class="bottom-screen-lights">
                   <div class="small-light red">
                     <div class="dot light-red"></div>
@@ -57,7 +60,9 @@
             <!-- Bottom Buttons -->
             <div class="buttons-container">
               <div class="upper-buttons-container">
-                <div class="big-button"></div>
+                <div class="big-button" style="background-color: darkgray">
+                  <h6 style="color: white">?</h6>
+                </div>
                 <div class="long-buttons-container">
                   <div class="long-button red"></div>
                   <div class="long-button light-blue"></div>
@@ -74,8 +79,14 @@
                 <div class="right-nav-container">
                   <div class="nav-button">
                     <div class="nav-center-circle"></div>
-                    <div class="nav-button-vertical"></div>
-                    <div class="nav-button-horizontal">
+                    <div
+                      class="nav-button-vertical"
+                      style="background-color: dimgray"
+                    ></div>
+                    <div
+                      class="nav-button-horizontal"
+                      style="background-color: dimgray"
+                    >
                       <div class="row d-flex justify-content-between">
                         <div class="col-md-4" @click="clickBoton(1)">.</div>
                         <div class="col-md-4" @click="clickBoton(2)">.</div>
@@ -165,12 +176,33 @@
             <!-- Bottom screens -->
             <div class="bottom-screens-container">
               <div id="type-screen" class="right-panel-screen">grass</div>
-              <div id="id-screen" class="right-panel-screen">#1</div>
+              <div id="id-screen" class="right-panel-screen">
+                <h3>#{{ idPokemon }}</h3>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <pre>
+          <div class="col-md-4" @click="clickBoton(1)">.</div>
+        </pre>
+      </div>
+      <div class="col-md-4">
+        <pre><code>
+          clickBoton(type) {
+            if (type === 1) {
+              alert("izquierda");
+            } else {
+              alert("derecha");
+            }
+          }
+          </code>
+        </pre>
+      </div>
     </div>
   </div>
 </template>
@@ -178,13 +210,37 @@
 <script>
 export default {
   name: "inicioPokedex",
+  data() {
+    return {
+      idPokemon: 1,
+      imgPokemon: "https://pokedex-tolucajs.herokuapp.com/pokemon/1/picture",
+    };
+  },
   methods: {
     // eslint-disable-next-line no-unused-vars
     async clickBoton(type) {
       if (type === 1) {
         alert("izquierda");
+        this.idPokemon = this.idPokemon - 1;
+        await this.getDataPokemon(this.idPokemon);
       } else {
         alert("derecha");
+        this.idPokemon = this.idPokemon + 1;
+        await this.getDataPokemon(this.idPokemon);
+      }
+    },
+    async getDataPokemon() {
+      let response = await this.$peticionesApi(
+        "https://pokedex-tolucajs.herokuapp.com/pokemon/" + this.idPokemon
+      );
+      if (response != null) {
+        //console.log(response);
+        //this.dataPokemon = response.data;
+        if (response.success) {
+          this.imgPokemon = `https://pokedex-tolucajs.herokuapp.com/pokemon/${this.idPokemon}/picture`;
+        } else {
+          this.$toastMessage("error", response.error.code, 4000, "center");
+        }
       }
     },
   },
@@ -374,6 +430,7 @@ input {
   display: flex;
   justify-content: start;
   align-items: center;
+  background-color: darkred;
 }
 
 .left-svg {
@@ -440,6 +497,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: darkred;
 }
 
 .screen {
@@ -476,7 +534,6 @@ input {
   background-color: var(--main-screen-bg-color);
   border: solid black 2px;
   border-radius: 5%;
-  background-image: url(https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -516,6 +573,7 @@ input {
 .buttons-container {
   display: grid;
   grid-template-rows: 40% 60%;
+  background-color: darkred;
 }
 
 .big-button {
@@ -523,7 +581,6 @@ input {
   height: 25px;
   border-radius: 50%;
   border: solid 2px black;
-  background-color: var(--main-buttons-color);
   margin-left: 7px;
 }
 
@@ -576,6 +633,7 @@ input {
 .nav-buttons-container {
   display: grid;
   grid-template-columns: 27% 35% 38%;
+  background-color: darkred;
 }
 
 .dots-container {
