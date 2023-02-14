@@ -74,7 +74,7 @@
                   <div>.</div>
                 </div>
                 <div class="green-screen">
-                  <span id="name-screen">bulbasaur</span>
+                  <span id="name-screen">{{ namePokemon }}</span>
                 </div>
                 <div class="right-nav-container">
                   <div class="nav-button">
@@ -175,7 +175,9 @@
             </div>
             <!-- Bottom screens -->
             <div class="bottom-screens-container">
-              <div id="type-screen" class="right-panel-screen">grass</div>
+              <div id="type-screen" class="right-panel-screen">
+                {{ tipoPokemon }}
+              </div>
               <div id="id-screen" class="right-panel-screen">
                 <h3>#{{ idPokemon }}</h3>
               </div>
@@ -212,6 +214,8 @@ export default {
   name: "inicioPokedex",
   data() {
     return {
+      namePokemon: "bulbasaur",
+      tipoPokemon: "pasto",
       idPokemon: 1,
       imgPokemon: "https://pokedex-tolucajs.herokuapp.com/pokemon/1/picture",
     };
@@ -220,12 +224,12 @@ export default {
     // eslint-disable-next-line no-unused-vars
     async clickBoton(type) {
       if (type === 1) {
-        alert("izquierda");
-        this.idPokemon = this.idPokemon - 1;
+        //alert("izquierda");
+        this.idPokemon--;
         await this.getDataPokemon(this.idPokemon);
       } else {
-        alert("derecha");
-        this.idPokemon = this.idPokemon + 1;
+        //alert("derecha");
+        this.idPokemon++;
         await this.getDataPokemon(this.idPokemon);
       }
     },
@@ -238,6 +242,8 @@ export default {
         //this.dataPokemon = response.data;
         if (response.success) {
           this.imgPokemon = `https://pokedex-tolucajs.herokuapp.com/pokemon/${this.idPokemon}/picture`;
+          this.namePokemon = response.data.name;
+          this.tipoPokemon = response.data.types[0];
         } else {
           this.$toastMessage("error", response.error.code, 4000, "center");
         }
